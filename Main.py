@@ -120,15 +120,27 @@ qa = ConversationalRetrievalChain.from_llm(llm=llama_model.to_langchain(),
                                            retriever=vectorstore.as_retriever(),memory=memory)
 
 def main():
+    st.set_page_config(
+    page_title="Chatbot Demo",
+    page_icon=":robot_face:",
+    layout="wide",
+    initial_sidebar_state="auto",
+    )
+    
     st.title("Chatbot Demo")
     chat_history = []
+    st.sidebar.title("Settings")
+    st.sidebar.write("This is a chatbot demo app.")
+    st.sidebar.write("Enter your message in the text box below and click 'Send' to chat with the chatbot.")
 
-    query = st.text_input("Enter your question:")
+    query = st.text_input("You:", "")
+    # query = st.text_input("Enter your question:")
     if st.button("Send"):
         result = qa({"question": query, "chat_history": chat_history})
         answer = result["answer"]
         chat_history.append((query, answer))
-        st.write(answer)
+        st.text_area("Chatbot:", answer)
+        # st.write(answer)
 
 if __name__ == "__main__":
     main()
