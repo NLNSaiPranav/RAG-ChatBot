@@ -141,6 +141,9 @@ def main():
         chat_history.append((query, answer))
         st.text_area("Chatbot:", answer)
         # st.write(answer)
-
+    st.sidebar.header("Chat History")
+    for i, (question, answer) in enumerate(chat_history[::-1]):
+        st.sidebar.write(f"Question {len(chat_history) - i}: {question}")
+        st.sidebar.write(f"Answer {len(chat_history) - i}: {answer}")
 if __name__ == "__main__":
     main()
