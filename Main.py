@@ -21,6 +21,7 @@ from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.embeddings import TensorflowHubEmbeddings
 from langchain.memory import ConversationBufferMemory
+import streamlit as st
 
 load_dotenv()
 project_id = os.getenv("5cb8e3b2-dbe7-44b5-afe3-ac5dfa3236ad", None)
@@ -79,6 +80,7 @@ result={'model_id': 'meta-llama/llama-2-70b-chat',
    'stop_reason': 'eos_token'}],
  'system': {'warnings': [{'message': 'This model is a Non-IBM Product governed by a third-party license that may impose use restrictions and other obligations. By using this model you agree to its terms as identified in the following URL. URL: https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-models.html?context=wx',
     'id': 'DisclaimerWarning'}]}}
+
 parameters = {
     GenParams.DECODING_METHOD: "greedy",
     GenParams.MAX_NEW_TOKENS: 200
@@ -111,7 +113,6 @@ url = "https://tfhub.dev/google/universal-sentence-encoder-multilingual/3"
 embeddings  = TensorflowHubEmbeddings(model_url=url)
 text_chunks=[content.page_content for content in documents]
 vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
-!pip install faiss-cpu
 
 memory = ConversationBufferMemory(memory_key="chat_history",
                                   return_messages=True)
@@ -119,13 +120,16 @@ llm=llama_model.to_langchain()
 qa = ConversationalRetrievalChain.from_llm(llm=llama_model.to_langchain(),
                                            retriever=vectorstore.as_retriever(),memory=memory)
 
+def main():
+    st.title("Chatbot Demo")
+    chat_history = []
 
-chat_history = []
-query = "What is the topic  about"
-result = qa({"question": query, "chat_history": chat_history})
-result["answer"]
-chat_history = [(query, result["answer"])]
-query = "What is Plaksha University"
-result = qa({"question": query, "chat_history": chat_history})
-result['answer']
-chat_history
+    query = st.text_input("Enter your question:")
+    if st.button("Send"):
+        result = qa({"question": query, "chat_history": chat_history})
+        answer = result["answer"]
+        chat_history.append((query, answer))
+        st.write(answer)
+
+if __name__ == "__main__":
+    main()
