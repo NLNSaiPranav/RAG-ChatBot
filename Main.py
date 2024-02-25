@@ -127,7 +127,10 @@ def main():
     initial_sidebar_state="auto",
     )
     
-    st.title("Chatbot Demo")
+    st.title("Plaksh Chatbot")
+    st.write("A chatbot for Plaksha University.")
+
+    st.sidebar.image('download.png', use_column_width=True)
     chat_history = []
     st.sidebar.title("Settings")
     st.sidebar.write("This is a chatbot demo app.")
