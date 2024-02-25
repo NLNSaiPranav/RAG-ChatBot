@@ -141,6 +141,5 @@ def main():
         chat_history.append((query, answer))
         st.text_area("Chatbot:", answer)
         # st.write(answer)
-    st.sidebar.header("Chat History")
 if __name__ == "__main__":
     main()
