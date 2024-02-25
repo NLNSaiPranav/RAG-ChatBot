@@ -1,6 +1,6 @@
 streamlit
-langchain==1.0.0
-ibm-watson-machine-learning==3.0.0
+langchain
+ibm-watson-machine-learning
 python-dotenv
 chromadb
 openai
