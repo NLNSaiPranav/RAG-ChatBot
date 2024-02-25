@@ -101,7 +101,7 @@ llm_chain = LLMChain(
 loader = TextLoader("Plaksha.txt")
 document = loader.load()
 
-langchain.schema.document.Document
+# langchain.schema.document.Document
 text_splitter = CharacterTextSplitter(separator="\n",
                                       chunk_size=1000,
                                       chunk_overlap=200)
