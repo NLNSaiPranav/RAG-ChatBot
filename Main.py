@@ -64,14 +64,13 @@ llama_model = Model(
     params=parameters,
     credentials=credentials,
     project_id='5cb8e3b2-dbe7-44b5-afe3-ac5dfa3236ad')
-llama_model.get_details()['short_description']
-llama_model.get_details()['model_limits']
-instruction = "Using the directions below, answer in a maximum of  2 sentences. "
-question = "What is the capital of Italy"
-prompt=" ".join([instruction, question])
-llama_model.generate_text(question)
-result=llama_model.generate(prompt)['results'][0]['generated_text']
-result
+# llama_model.get_details()['short_description']
+# llama_model.get_details()['model_limits']
+# instruction = "Using the directions below, answer in a maximum of  2 sentences. "
+# question = "What is the capital of Italy"
+# prompt=" ".join([instruction, question])
+# llama_model.generate_text(question)
+# result=llama_model.generate(prompt)['results'][0]['generated_text']
 result={'model_id': 'meta-llama/llama-2-70b-chat',
  'created_at': '2023-10-24T18:58:01.390Z',
  'results': [{'generated_text': '?\nThe capital of Italy is Rome (Italian: Roma). Rome is the largest city in Italy and is located in the central-western part of the country. It is known for its rich history, architecture, art, and culture, and is home to many famous landmarks such as the Colosseum, the Pantheon, and the Vatican City.',
